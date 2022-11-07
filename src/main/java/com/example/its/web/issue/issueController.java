@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,6 +38,12 @@ public class issueController {
         issueServ.create(form.getSummary(), form.getDescription());
         return "redirect:/issues";
     }
-
+    // GET localhost:8080/issues/1
+    @GetMapping("/{issueId}")
+    public String showDetail(@PathVariable("issueId") long issueId, Model model) {
+        var dummyEntity = new issueEntity(1, "概要", "説明");
+        model.addAttribute("issue", dummyEntity);
+        return "issues/detail";
+    }
 }
 
