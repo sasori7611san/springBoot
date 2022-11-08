@@ -1,6 +1,5 @@
 package com.example.its.web.issue;
 
-import com.example.its.domain.issue.issueEntity;
 import com.example.its.domain.issue.issueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/issues")
@@ -41,8 +38,7 @@ public class issueController {
     // GET localhost:8080/issues/1
     @GetMapping("/{issueId}")
     public String showDetail(@PathVariable("issueId") long issueId, Model model) {
-        var dummyEntity = new issueEntity(1, "概要", "説明");
-        model.addAttribute("issue", dummyEntity);
+        model.addAttribute("issue", issueServ.findById(issueId));
         return "issues/detail";
     }
 }
